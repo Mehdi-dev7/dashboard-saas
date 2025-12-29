@@ -1,5 +1,8 @@
+import { ActivityFeed } from "@/components/dashboard/ActivityFeed";
 import { KpiCard } from "@/components/dashboard/KpiCard";
-import { kpis } from "@/lib/data/mockData";
+import { RevenueChart } from "@/components/dashboard/RevenueChart";
+import { UsersChart } from "@/components/dashboard/UsersChart";
+import { activities, chartData, kpis } from "@/lib/data/mockData";
 
 export default function DashboardPage() {
 	return (
@@ -27,6 +30,15 @@ export default function DashboardPage() {
 					/>
 				))}
 			</div>
+
+			{/* 2 colonnes : RevenueChart + UsersChart */}
+			<div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+				<RevenueChart data={chartData} />
+				<UsersChart data={chartData} />
+			</div>
+
+			{/* ActivityFeed en dessous */}
+			<ActivityFeed activities={activities} />
 		</div>
 	);
 }
