@@ -7,15 +7,24 @@ const generateId = (): string => {
 		.substring(2, 15)}`;
 };
 
-// Function to generate a random date within the last 6 months
-const randomDate = (monthsAgo: number = 6): Date => {
-	const now = new Date();
-	const past = new Date();
-	past.setMonth(now.getMonth() - monthsAgo);
-	const randomTime =
-		past.getTime() + Math.random() * (now.getTime() - past.getTime());
-	return new Date(randomTime);
-};
+// Fixed dates to avoid hydration errors (spread over the last 6 months)
+const fixedDates = [
+	new Date("2024-06-15"),
+	new Date("2024-07-22"),
+	new Date("2024-08-10"),
+	new Date("2024-08-28"),
+	new Date("2024-09-05"),
+	new Date("2024-09-18"),
+	new Date("2024-10-02"),
+	new Date("2024-10-20"),
+	new Date("2024-11-01"),
+	new Date("2024-11-12"),
+	new Date("2024-11-25"),
+	new Date("2024-12-03"),
+	new Date("2024-12-10"),
+	new Date("2024-12-18"),
+	new Date("2024-12-25"),
+];
 
 // 15 users with various names
 export const users: User[] = [
@@ -26,7 +35,7 @@ export const users: User[] = [
 		role: "admin",
 		status: "active",
 		avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sophie",
-		createdAt: randomDate(),
+		createdAt: fixedDates[0],
 	},
 	{
 		id: generateId(),
@@ -35,7 +44,7 @@ export const users: User[] = [
 		role: "manager",
 		status: "active",
 		avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Lucas",
-		createdAt: randomDate(),
+		createdAt: fixedDates[1],
 	},
 	{
 		id: generateId(),
@@ -44,7 +53,7 @@ export const users: User[] = [
 		role: "user",
 		status: "active",
 		avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Emma",
-		createdAt: randomDate(),
+		createdAt: fixedDates[2],
 	},
 	{
 		id: generateId(),
@@ -53,7 +62,7 @@ export const users: User[] = [
 		role: "user",
 		status: "active",
 		avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Thomas",
-		createdAt: randomDate(),
+		createdAt: fixedDates[3],
 	},
 	{
 		id: generateId(),
@@ -62,7 +71,7 @@ export const users: User[] = [
 		role: "manager",
 		status: "active",
 		avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Lea",
-		createdAt: randomDate(),
+		createdAt: fixedDates[4],
 	},
 	{
 		id: generateId(),
@@ -71,7 +80,7 @@ export const users: User[] = [
 		role: "user",
 		status: "inactive",
 		avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Hugo",
-		createdAt: randomDate(),
+		createdAt: fixedDates[5],
 	},
 	{
 		id: generateId(),
@@ -80,7 +89,7 @@ export const users: User[] = [
 		role: "user",
 		status: "active",
 		avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Chloe",
-		createdAt: randomDate(),
+		createdAt: fixedDates[6],
 	},
 	{
 		id: generateId(),
@@ -89,7 +98,7 @@ export const users: User[] = [
 		role: "admin",
 		status: "active",
 		avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Nathan",
-		createdAt: randomDate(),
+		createdAt: fixedDates[7],
 	},
 	{
 		id: generateId(),
@@ -98,7 +107,7 @@ export const users: User[] = [
 		role: "user",
 		status: "active",
 		avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Camille",
-		createdAt: randomDate(),
+		createdAt: fixedDates[8],
 	},
 	{
 		id: generateId(),
@@ -107,7 +116,7 @@ export const users: User[] = [
 		role: "manager",
 		status: "inactive",
 		avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Maxime",
-		createdAt: randomDate(),
+		createdAt: fixedDates[9],
 	},
 	{
 		id: generateId(),
@@ -116,7 +125,7 @@ export const users: User[] = [
 		role: "user",
 		status: "active",
 		avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Julie",
-		createdAt: randomDate(),
+		createdAt: fixedDates[10],
 	},
 	{
 		id: generateId(),
@@ -125,7 +134,7 @@ export const users: User[] = [
 		role: "user",
 		status: "active",
 		avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Antoine",
-		createdAt: randomDate(),
+		createdAt: fixedDates[11],
 	},
 	{
 		id: generateId(),
@@ -134,7 +143,7 @@ export const users: User[] = [
 		role: "manager",
 		status: "active",
 		avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Manon",
-		createdAt: randomDate(),
+		createdAt: fixedDates[12],
 	},
 	{
 		id: generateId(),
@@ -143,7 +152,7 @@ export const users: User[] = [
 		role: "user",
 		status: "inactive",
 		avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Alexandre",
-		createdAt: randomDate(),
+		createdAt: fixedDates[13],
 	},
 	{
 		id: generateId(),
@@ -152,7 +161,7 @@ export const users: User[] = [
 		role: "user",
 		status: "active",
 		avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Ines",
-		createdAt: randomDate(),
+		createdAt: fixedDates[14],
 	},
 ];
 
@@ -188,6 +197,9 @@ export const kpis: KPI[] = [
 	},
 ];
 
+// Fixed base date for activities (to avoid hydration errors)
+const baseDate = new Date("2024-12-25T12:00:00");
+
 // 10 recent activities
 export const activities: Activity[] = [
 	{
@@ -196,7 +208,7 @@ export const activities: Activity[] = [
 		userName: users[0].name,
 		userAvatar: users[0].avatar,
 		action: "created a new account",
-		timestamp: new Date(Date.now() - 1000 * 60 * 15), // 15 minutes ago
+		timestamp: new Date(baseDate.getTime() - 1000 * 60 * 15), // 15 minutes ago
 	},
 	{
 		id: generateId(),
@@ -204,7 +216,7 @@ export const activities: Activity[] = [
 		userName: users[1].name,
 		userAvatar: users[1].avatar,
 		action: "updated their profile",
-		timestamp: new Date(Date.now() - 1000 * 60 * 45), // 45 minutes ago
+		timestamp: new Date(baseDate.getTime() - 1000 * 60 * 45), // 45 minutes ago
 	},
 	{
 		id: generateId(),
@@ -212,7 +224,7 @@ export const activities: Activity[] = [
 		userName: users[2].name,
 		userAvatar: users[2].avatar,
 		action: "deleted an item",
-		timestamp: new Date(Date.now() - 1000 * 60 * 60), // 1 hour ago
+		timestamp: new Date(baseDate.getTime() - 1000 * 60 * 60), // 1 hour ago
 	},
 	{
 		id: generateId(),
@@ -220,7 +232,7 @@ export const activities: Activity[] = [
 		userName: users[3].name,
 		userAvatar: users[3].avatar,
 		action: "downloaded a file",
-		timestamp: new Date(Date.now() - 1000 * 60 * 90), // 1.5 hours ago
+		timestamp: new Date(baseDate.getTime() - 1000 * 60 * 90), // 1.5 hours ago
 	},
 	{
 		id: generateId(),
@@ -228,7 +240,7 @@ export const activities: Activity[] = [
 		userName: users[4].name,
 		userAvatar: users[4].avatar,
 		action: "created a new project",
-		timestamp: new Date(Date.now() - 1000 * 60 * 120), // 2 hours ago
+		timestamp: new Date(baseDate.getTime() - 1000 * 60 * 120), // 2 hours ago
 	},
 	{
 		id: generateId(),
@@ -236,7 +248,7 @@ export const activities: Activity[] = [
 		userName: users[5].name,
 		userAvatar: users[5].avatar,
 		action: "modified settings",
-		timestamp: new Date(Date.now() - 1000 * 60 * 180), // 3 hours ago
+		timestamp: new Date(baseDate.getTime() - 1000 * 60 * 180), // 3 hours ago
 	},
 	{
 		id: generateId(),
@@ -244,7 +256,7 @@ export const activities: Activity[] = [
 		userName: users[6].name,
 		userAvatar: users[6].avatar,
 		action: "shared a document",
-		timestamp: new Date(Date.now() - 1000 * 60 * 240), // 4 hours ago
+		timestamp: new Date(baseDate.getTime() - 1000 * 60 * 240), // 4 hours ago
 	},
 	{
 		id: generateId(),
@@ -252,7 +264,7 @@ export const activities: Activity[] = [
 		userName: users[7].name,
 		userAvatar: users[7].avatar,
 		action: "added a comment",
-		timestamp: new Date(Date.now() - 1000 * 60 * 300), // 5 hours ago
+		timestamp: new Date(baseDate.getTime() - 1000 * 60 * 300), // 5 hours ago
 	},
 	{
 		id: generateId(),
@@ -260,7 +272,7 @@ export const activities: Activity[] = [
 		userName: users[8].name,
 		userAvatar: users[8].avatar,
 		action: "created a new task",
-		timestamp: new Date(Date.now() - 1000 * 60 * 360), // 6 hours ago
+		timestamp: new Date(baseDate.getTime() - 1000 * 60 * 360), // 6 hours ago
 	},
 	{
 		id: generateId(),
@@ -268,7 +280,7 @@ export const activities: Activity[] = [
 		userName: users[9].name,
 		userAvatar: users[9].avatar,
 		action: "completed a task",
-		timestamp: new Date(Date.now() - 1000 * 60 * 420), // 7 hours ago
+		timestamp: new Date(baseDate.getTime() - 1000 * 60 * 420), // 7 hours ago
 	},
 ];
 
