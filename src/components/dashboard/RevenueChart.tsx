@@ -29,7 +29,7 @@ export function RevenueChart({ data }: RevenueChartProps) {
 	useEffect(() => {
 		if (typeof window !== "undefined") {
 			const root = document.documentElement;
-			// Utiliser une couleur directe qui fonctionne bien
+			// Use a direct color that works well
 			// En mode clair: bleu, en mode sombre: bleu clair
 			const isDark = root.classList.contains("dark");
 			const timer = setTimeout(() => {

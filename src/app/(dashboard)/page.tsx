@@ -12,9 +12,7 @@ export default function DashboardPage() {
 				<h1 className="text-3xl font-bold tracking-tight">
 					Dashboard Overview
 				</h1>
-				<p className="text-muted-foreground">
-					Bienvenue sur votre tableau de bord
-				</p>
+				<p className="text-muted-foreground">Welcome to your dashboard</p>
 			</div>
 
 			{/* Grid des KPI cards */}

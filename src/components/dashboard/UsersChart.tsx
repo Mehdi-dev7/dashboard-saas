@@ -29,7 +29,7 @@ export function UsersChart({ data }: UsersChartProps) {
 	useEffect(() => {
 		if (typeof window !== "undefined") {
 			const root = document.documentElement;
-			// Utiliser une couleur verte qui fonctionne bien
+			// Use a green color that works well
 			// En mode clair: vert, en mode sombre: vert clair
 			const isDark = root.classList.contains("dark");
 			const timer = setTimeout(() => {

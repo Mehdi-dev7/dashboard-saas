@@ -113,7 +113,7 @@ export function Sidebar() {
 											: "text-muted-foreground"
 									)}
 									onClick={() => {
-										// Fermer la sidebar sur mobile après clic
+										// Close sidebar on mobile after click
 										if (window.innerWidth < 1024) {
 											toggleSidebar();
 										}

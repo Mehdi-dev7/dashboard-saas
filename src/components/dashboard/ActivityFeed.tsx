@@ -4,14 +4,14 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { Activity } from "@/types";
 import { formatDistanceToNow } from "date-fns";
-import { fr } from "date-fns/locale";
+import { enUS } from "date-fns/locale";
 
 interface ActivityFeedProps {
 	activities: Activity[];
 }
 
 export function ActivityFeed({ activities }: ActivityFeedProps) {
-	// Prendre les 5 dernières activités
+	// Get the 5 most recent activities
 	const recentActivities = activities.slice(0, 5);
 
 	return (
@@ -23,7 +23,7 @@ export function ActivityFeed({ activities }: ActivityFeedProps) {
 				<div className="max-h-[400px] overflow-y-auto space-y-4">
 					{recentActivities.length === 0 ? (
 						<p className="text-sm text-muted-foreground text-center py-4">
-							Aucune activité récente
+							No recent activity
 						</p>
 					) : (
 						recentActivities.map((activity) => (
@@ -54,7 +54,7 @@ export function ActivityFeed({ activities }: ActivityFeedProps) {
 									<p className="text-xs text-muted-foreground mt-1">
 										{formatDistanceToNow(new Date(activity.timestamp), {
 											addSuffix: true,
-											locale: fr,
+											locale: enUS,
 										})}
 									</p>
 								</div>

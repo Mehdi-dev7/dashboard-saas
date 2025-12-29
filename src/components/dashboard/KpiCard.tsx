@@ -27,7 +27,7 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
 	Activity,
 	TrendingUp,
 	BarChart3,
-	// Ajoutez d'autres icônes ici si nécessaire
+	// Add more icons here if needed
 };
 
 // Fonction pour obtenir l'icône dynamiquement

@@ -31,7 +31,7 @@ export function Topbar() {
 	const [mounted, setMounted] = useState(false);
 
 	useEffect(() => {
-		// Nécessaire pour éviter les erreurs d'hydratation avec Radix UI DropdownMenu
+		// Necessary to avoid hydration errors with Radix UI DropdownMenu
 		// Pattern recommandé pour les composants qui génèrent des IDs aléatoires
 		const timer = setTimeout(() => {
 			setMounted(true);
@@ -58,7 +58,7 @@ export function Topbar() {
 					<Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground pointer-events-none" />
 					<Input
 						type="search"
-						placeholder="Rechercher..."
+						placeholder="Search..."
 						className="pl-9 w-full"
 					/>
 				</div>
@@ -103,7 +103,7 @@ export function Topbar() {
 									<Button
 										variant="ghost"
 										className="relative size-9 rounded-full"
-										aria-label="Menu utilisateur"
+										aria-label="User menu"
 									>
 										<Avatar className="size-9">
 											<AvatarImage
@@ -145,7 +145,7 @@ export function Topbar() {
 							<Button
 								variant="ghost"
 								className="relative size-9 rounded-full"
-								aria-label="Menu utilisateur"
+								aria-label="User menu"
 							>
 								<Avatar className="size-9">
 									<AvatarImage
