@@ -63,13 +63,13 @@ export function UsersTable({ users }: UsersTableProps) {
 			<Table>
 				<TableHeader>
 					<TableRow>
-						<TableHead>Avatar</TableHead>
-						<TableHead>Name</TableHead>
-						<TableHead>Email</TableHead>
-						<TableHead>Role</TableHead>
-						<TableHead>Status</TableHead>
-						<TableHead>Created</TableHead>
-						<TableHead className="text-right">Actions</TableHead>
+						<TableHead className="w-10 sm:w-12 max-[360px]:w-8">Avatar</TableHead>
+						<TableHead className="min-w-[140px] max-[360px]:min-w-[100px]">Name</TableHead>
+						<TableHead className="hidden md:table-cell">Email</TableHead>
+						<TableHead className="hidden sm:table-cell">Role</TableHead>
+						<TableHead className="hidden lg:table-cell">Status</TableHead>
+						<TableHead className="hidden lg:table-cell">Created</TableHead>
+						<TableHead className="text-right w-20 sm:w-24 max-[360px]:w-16">Actions</TableHead>
 					</TableRow>
 				</TableHeader>
 				<TableBody>
@@ -85,14 +85,14 @@ export function UsersTable({ users }: UsersTableProps) {
 					) : (
 						users.map((user) => (
 							<TableRow key={user.id} className="hover:bg-muted/50">
-								<TableCell>
-									<Avatar className="size-10">
+								<TableCell className="w-10 sm:w-12 max-[360px]:w-8 p-2 sm:p-4 max-[360px]:p-1">
+									<Avatar className="size-8 sm:size-10 max-[360px]:size-6">
 										<AvatarImage
 											src={user.avatar}
 											alt={user.name}
-											className="size-10"
+											className="size-8 sm:size-10 max-[360px]:size-6"
 										/>
-										<AvatarFallback>
+										<AvatarFallback className="text-xs max-[360px]:text-[10px]">
 											{user.name
 												.split(" ")
 												.map((n) => n[0])
@@ -101,11 +101,20 @@ export function UsersTable({ users }: UsersTableProps) {
 										</AvatarFallback>
 									</Avatar>
 								</TableCell>
-								<TableCell className="font-medium">{user.name}</TableCell>
-								<TableCell className="text-muted-foreground">
+								<TableCell className="font-medium min-w-[140px] max-[360px]:min-w-[100px] p-2 sm:p-4 max-[360px]:p-1.5">
+									<div className="flex flex-col gap-0.5">
+										<span className="text-sm sm:text-base truncate max-[360px]:text-xs max-[360px]:max-w-[120px]">
+											{user.name}
+										</span>
+										<span className="text-xs text-muted-foreground md:hidden max-[360px]:text-[10px] max-[360px]:max-w-[120px] max-[360px]:truncate">
+											{user.email}
+										</span>
+									</div>
+								</TableCell>
+								<TableCell className="hidden md:table-cell text-muted-foreground">
 									{user.email}
 								</TableCell>
-								<TableCell>
+								<TableCell className="hidden sm:table-cell">
 									<Badge
 										variant={getRoleVariant(user.role)}
 										className={cn(getRoleColor(user.role))}
@@ -113,7 +122,7 @@ export function UsersTable({ users }: UsersTableProps) {
 										{user.role}
 									</Badge>
 								</TableCell>
-								<TableCell>
+								<TableCell className="hidden lg:table-cell">
 									<Badge
 										variant={getStatusVariant(user.status)}
 										className={cn(getStatusColor(user.status))}
@@ -121,39 +130,39 @@ export function UsersTable({ users }: UsersTableProps) {
 										{user.status}
 									</Badge>
 								</TableCell>
-								<TableCell>
+								<TableCell className="hidden lg:table-cell">
 									{format(new Date(user.createdAt), "MMM dd, yyyy", {
 										locale: enUS,
 									})}
 								</TableCell>
-								<TableCell>
-									<div className="flex items-center justify-end gap-2">
+								<TableCell className="text-right w-20 sm:w-24 max-[360px]:w-16 p-1 sm:p-2 max-[360px]:p-0.5">
+									<div className="flex items-center justify-end gap-1 sm:gap-2 max-[360px]:gap-0.5">
 										<Button
 											variant="ghost"
 											size="icon"
-											className="size-8"
+											className="size-8 max-[360px]:size-6"
 											aria-label="View"
 											title="View details"
 										>
-											<Eye className="size-4" />
+											<Eye className="size-4 max-[360px]:size-3" />
 										</Button>
 										<Button
 											variant="ghost"
 											size="icon"
-											className="size-8"
+											className="size-8 max-[360px]:size-6"
 											aria-label="Edit"
 											title="Edit user"
 										>
-											<Edit className="size-4" />
+											<Edit className="size-4 max-[360px]:size-3" />
 										</Button>
 										<Button
 											variant="ghost"
 											size="icon"
-											className="size-8 text-destructive hover:text-destructive"
+											className="size-8 max-[360px]:size-6 text-destructive hover:text-destructive"
 											aria-label="Delete"
 											title="Delete user"
 										>
-											<Trash className="size-4" />
+											<Trash className="size-4 max-[360px]:size-3" />
 										</Button>
 									</div>
 								</TableCell>
