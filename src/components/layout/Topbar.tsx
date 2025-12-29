@@ -22,11 +22,12 @@ import {
 	Settings,
 	Sun,
 	User,
+	X,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 
 export function Topbar() {
-	const { toggleSidebar, darkMode, toggleDarkMode } = useStore();
+	const { toggleSidebar, darkMode, toggleDarkMode, sidebarOpen } = useStore();
 	const [mounted, setMounted] = useState(false);
 
 	useEffect(() => {
@@ -41,15 +42,15 @@ export function Topbar() {
 	return (
 		<header className="sticky top-0 z-40 w-full border-b border-border bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60 shadow-sm">
 			<div className="flex h-16 items-center gap-4 px-4 lg:px-6">
-				{/* Bouton hamburger pour toggle sidebar (desktop) */}
+				{/* Bouton hamburger pour toggle sidebar (visible sur mobile et desktop) */}
 				<Button
 					variant="ghost"
 					size="icon"
 					onClick={toggleSidebar}
-					className="hidden lg:flex"
+					className="flex lg:flex"
 					aria-label="Toggle sidebar"
 				>
-					<Menu className="size-5" />
+					{sidebarOpen ? <X className="size-5" /> : <Menu className="size-5" />}
 				</Button>
 
 				{/* Search bar au centre (masquée sur mobile) */}

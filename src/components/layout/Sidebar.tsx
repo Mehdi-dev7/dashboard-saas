@@ -67,7 +67,7 @@ export function Sidebar() {
 						<Link
 							href="/"
 							className={cn(
-								"flex items-center gap-2 font-bold text-lg transition-opacity",
+								"flex items-center gap-2 font-bold text-lg transition-opacity cursor-pointer",
 								!sidebarOpen && "opacity-0 lg:opacity-100"
 							)}
 						>
@@ -105,7 +105,7 @@ export function Sidebar() {
 									key={item.name}
 									href={item.href}
 									className={cn(
-										"flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
+										"flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors cursor-pointer",
 										"hover:bg-accent hover:text-accent-foreground",
 										"focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
 										isActive
