@@ -6,6 +6,7 @@ import { UserDetailsModal } from "@/components/users/UserDetailsModal";
 import { UsersFilters } from "@/components/users/UsersFilters";
 import { UsersModal } from "@/components/users/UsersModal";
 import { UsersTable } from "@/components/users/UsersTable";
+import { UsersTableSkeleton } from "@/components/users/UsersTableSkeleton";
 import { users as mockUsers } from "@/lib/data/mockData";
 import { useStore } from "@/lib/store/useStore";
 import type { User } from "@/types";
@@ -23,6 +24,7 @@ export default function UsersPage() {
 	const [detailsModalOpen, setDetailsModalOpen] = useState(false);
 	const [selectedUser, setSelectedUser] = useState<User | null>(null);
 	const [viewedUser, setViewedUser] = useState<User | null>(null);
+	const [loading, setLoading] = useState(false);
 
 	// Initialize users from mockData on mount if store is empty
 	useEffect(() => {
@@ -87,12 +89,17 @@ export default function UsersPage() {
 	};
 
 	// Handle save user (create or update)
-	const handleSave = (data: {
+	const handleSave = async (data: {
 		name: string;
 		email: string;
 		role: User["role"];
 		status: User["status"];
 	}) => {
+		setLoading(true);
+
+		// Simuler API call
+		await new Promise((resolve) => setTimeout(resolve, 800));
+
 		if (selectedUser) {
 			// Update existing user
 			updateUser(selectedUser.id, data);
@@ -113,6 +120,9 @@ export default function UsersPage() {
 			addUser(newUser);
 			toast.success("User created successfully!");
 		}
+
+		setLoading(false);
+		setModalOpen(false);
 	};
 
 	// Handle delete user with confirmation
@@ -163,12 +173,16 @@ export default function UsersPage() {
 
 			{/* UsersTable */}
 			<div className="overflow-x-auto -mx-4 px-2 sm:px-4 md:mx-0 md:px-0 max-[360px]:px-1">
-				<UsersTable
-					users={paginatedUsers}
-					onView={handleViewUser}
-					onEdit={handleEditUser}
-					onDelete={handleDeleteUser}
-				/>
+				{loading ? (
+					<UsersTableSkeleton />
+				) : (
+					<UsersTable
+						users={paginatedUsers}
+						onView={handleViewUser}
+						onEdit={handleEditUser}
+						onDelete={handleDeleteUser}
+					/>
+				)}
 			</div>
 
 			{/* Pagination */}

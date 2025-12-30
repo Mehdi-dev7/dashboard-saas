@@ -15,6 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useStore } from "@/lib/store/useStore";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -32,6 +33,7 @@ type ProfileFormValues = z.infer<typeof profileFormSchema>;
 export function ProfileSection() {
 	const { profile, updateProfile } = useStore();
 	const [mounted, setMounted] = useState(false);
+	const [isSubmitting, setIsSubmitting] = useState(false);
 
 	const form = useForm<ProfileFormValues>({
 		resolver: zodResolver(profileFormSchema),
@@ -61,13 +63,17 @@ export function ProfileSection() {
 		}
 	}, [profile, form, mounted]);
 
-	const avatarUrl = `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(
-		profile.name
-	)}`;
+	const onSubmit = async (data: ProfileFormValues) => {
+		setIsSubmitting(true);
 
-	const onSubmit = (data: ProfileFormValues) => {
 		updateProfile(data);
+
+		// Simuler API call
+		await new Promise((resolve) => setTimeout(resolve, 800));
+
 		toast.success("Profile updated successfully!");
+
+		setIsSubmitting(false);
 	};
 
 	return (
@@ -84,7 +90,7 @@ export function ProfileSection() {
 								<FormLabel>Avatar</FormLabel>
 								<div className="flex flex-col gap-4 sm:flex-row sm:items-end">
 									<Avatar className="size-20">
-										<AvatarImage src={avatarUrl} alt="Profile avatar" />
+										<AvatarImage src={profile.avatar} alt="Profile avatar" />
 										<AvatarFallback className="text-lg">
 											{profile.name
 												.split(" ")
@@ -167,7 +173,12 @@ export function ProfileSection() {
 
 							{/* Submit Button */}
 							<div className="flex justify-end">
-								<Button type="submit">Save Changes</Button>
+								<Button type="submit" disabled={isSubmitting}>
+									{isSubmitting && (
+										<Loader2 className="mr-2 size-4 animate-spin" />
+									)}
+									{isSubmitting ? "Saving..." : "Save Changes"}
+								</Button>
 							</div>
 						</form>
 					</Form>

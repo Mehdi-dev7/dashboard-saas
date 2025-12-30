@@ -26,7 +26,8 @@ import {
 } from "@/components/ui/select";
 import type { User } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect } from "react";
+import { Loader2 } from "lucide-react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -44,7 +45,7 @@ interface UsersModalProps {
 	open: boolean;
 	onOpenChange: (open: boolean) => void;
 	user: User | null;
-	onSave: (data: UserFormValues) => void;
+	onSave: (data: UserFormValues) => Promise<void>;
 }
 
 export function UsersModal({
@@ -53,6 +54,7 @@ export function UsersModal({
 	user,
 	onSave,
 }: UsersModalProps) {
+	const [isSubmitting, setIsSubmitting] = useState(false);
 	const form = useForm<UserFormValues>({
 		resolver: zodResolver(userFormSchema),
 		defaultValues: {
@@ -82,8 +84,10 @@ export function UsersModal({
 		}
 	}, [user, form]);
 
-	const onSubmit = (data: UserFormValues) => {
-		onSave(data);
+	const onSubmit = async (data: UserFormValues) => {
+		setIsSubmitting(true);
+		await onSave(data);
+		setIsSubmitting(false);
 		onOpenChange(false);
 	};
 
@@ -177,10 +181,16 @@ export function UsersModal({
 								type="button"
 								variant="outline"
 								onClick={() => onOpenChange(false)}
+								disabled={isSubmitting}
 							>
 								Cancel
 							</Button>
-							<Button type="submit">Save</Button>
+							<Button type="submit" disabled={isSubmitting}>
+								{isSubmitting && (
+									<Loader2 className="mr-2 size-4 animate-spin" />
+								)}
+								{isSubmitting ? "Saving..." : "Save"}
+							</Button>
 						</DialogFooter>
 					</form>
 				</Form>

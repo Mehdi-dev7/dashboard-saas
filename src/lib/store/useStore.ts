@@ -1,10 +1,12 @@
 import type { User } from "@/types";
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 interface Profile {
 	name: string;
 	email: string;
 	bio: string;
+	avatar: string;
 }
 
 interface StoreState {
@@ -24,58 +26,71 @@ interface StoreState {
 	updateProfile: (data: Partial<Profile>) => void;
 }
 
-export const useStore = create<StoreState>((set) => ({
-	// Initial state
-	users: [],
-	darkMode: false,
-	sidebarOpen: true,
-	profile: {
-		name: "Admin User",
-		email: "admin@example.com",
-		bio: "",
-	},
+export const useStore = create<StoreState>()(
+	persist(
+		(set) => ({
+			// Initial state
+			users: [],
+			darkMode: false,
+			sidebarOpen: true,
+			profile: {
+				name: "Admin User",
+				email: "admin@example.com",
+				bio: "",
+				avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=AdminUser123",
+			},
 
-	// Actions
-	setUsers: (users) => set({ users }),
+			// Actions
+			setUsers: (users) => set({ users }),
 
-	addUser: (user) =>
-		set((state) => ({
-			users: [...state.users, user],
-		})),
+			addUser: (user) =>
+				set((state) => ({
+					users: [...state.users, user],
+				})),
 
-	updateUser: (id, data) =>
-		set((state) => ({
-			users: state.users.map((user) =>
-				user.id === id ? { ...user, ...data } : user
-			),
-		})),
+			updateUser: (id, data) =>
+				set((state) => ({
+					users: state.users.map((user) =>
+						user.id === id ? { ...user, ...data } : user
+					),
+				})),
 
-	deleteUser: (id) =>
-		set((state) => ({
-			users: state.users.filter((user) => user.id !== id),
-		})),
+			deleteUser: (id) =>
+				set((state) => ({
+					users: state.users.filter((user) => user.id !== id),
+				})),
 
-	toggleDarkMode: () =>
-		set((state) => {
-			const newDarkMode = !state.darkMode;
-			// Appliquer la classe dark au document
-			if (typeof document !== "undefined") {
-				if (newDarkMode) {
-					document.documentElement.classList.add("dark");
-				} else {
-					document.documentElement.classList.remove("dark");
-				}
-			}
-			return { darkMode: newDarkMode };
+			toggleDarkMode: () =>
+				set((state) => {
+					const newDarkMode = !state.darkMode;
+					// Appliquer la classe dark au document
+					if (typeof document !== "undefined") {
+						if (newDarkMode) {
+							document.documentElement.classList.add("dark");
+						} else {
+							document.documentElement.classList.remove("dark");
+						}
+					}
+					return { darkMode: newDarkMode };
+				}),
+
+			toggleSidebar: () =>
+				set((state) => ({
+					sidebarOpen: !state.sidebarOpen,
+				})),
+
+			updateProfile: (data) =>
+				set((state) => ({
+					profile: { ...state.profile, ...data },
+				})),
 		}),
-
-	toggleSidebar: () =>
-		set((state) => ({
-			sidebarOpen: !state.sidebarOpen,
-		})),
-
-	updateProfile: (data) =>
-		set((state) => ({
-			profile: { ...state.profile, ...data },
-		})),
-}));
+		{
+			name: "dashboard-storage",
+			partialize: (state) => ({
+				profile: state.profile,
+				darkMode: state.darkMode,
+				sidebarOpen: state.sidebarOpen,
+			}),
+		}
+	)
+);

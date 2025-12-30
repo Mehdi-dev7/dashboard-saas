@@ -109,9 +109,7 @@ export function Topbar() {
 									>
 										<Avatar className="size-9">
 											<AvatarImage
-												src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(
-													profile.name
-												)}`}
+												src={profile.avatar}
 												alt="Avatar"
 											/>
 											<AvatarFallback>
