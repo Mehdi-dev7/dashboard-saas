@@ -17,6 +17,7 @@ import { useStore } from "@/lib/store/useStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 
 // Zod schema
@@ -30,7 +31,6 @@ type ProfileFormValues = z.infer<typeof profileFormSchema>;
 
 export function ProfileSection() {
 	const { profile, updateProfile } = useStore();
-	const [saved, setSaved] = useState(false);
 	const [mounted, setMounted] = useState(false);
 
 	const form = useForm<ProfileFormValues>({
@@ -67,11 +67,7 @@ export function ProfileSection() {
 
 	const onSubmit = (data: ProfileFormValues) => {
 		updateProfile(data);
-		setSaved(true);
-		setTimeout(() => {
-			setSaved(false);
-		}, 2000);
-		console.log("Profile updated:", data);
+		toast.success("Profile updated successfully!");
 	};
 
 	return (
@@ -170,12 +166,7 @@ export function ProfileSection() {
 							/>
 
 							{/* Submit Button */}
-							<div className="flex items-center justify-end gap-2">
-								{saved && (
-									<span className="text-sm text-green-600 dark:text-green-400 animate-in fade-in">
-										Saved!
-									</span>
-								)}
+							<div className="flex justify-end">
 								<Button type="submit">Save Changes</Button>
 							</div>
 						</form>

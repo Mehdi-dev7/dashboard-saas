@@ -11,6 +11,7 @@ import { useStore } from "@/lib/store/useStore";
 import type { User } from "@/types";
 import { Plus } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
+import { toast } from "sonner";
 
 export default function UsersPage() {
 	const { users, setUsers, addUser, updateUser, deleteUser } = useStore();
@@ -95,6 +96,7 @@ export default function UsersPage() {
 		if (selectedUser) {
 			// Update existing user
 			updateUser(selectedUser.id, data);
+			toast.success("User updated successfully!");
 		} else {
 			// Create new user
 			const newUser: User = {
@@ -109,13 +111,17 @@ export default function UsersPage() {
 				createdAt: new Date(),
 			};
 			addUser(newUser);
+			toast.success("User created successfully!");
 		}
 	};
 
 	// Handle delete user with confirmation
 	const handleDeleteUser = (id: string) => {
-		if (confirm("Are you sure you want to delete this user?")) {
+		if (window.confirm("Are you sure you want to delete this user?")) {
 			deleteUser(id);
+			toast.error("User deleted successfully!");
+		} else {
+			toast.error("Deletion cancelled");
 		}
 	};
 
