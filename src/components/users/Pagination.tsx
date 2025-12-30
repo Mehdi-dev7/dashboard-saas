@@ -30,7 +30,7 @@ export function Pagination({
 	}
 
 	return (
-		<div className="hidden sm:flex items-center justify-center gap-2">
+		<div className="flex items-center justify-center gap-2">
 			{/* Previous Button */}
 			<Button
 				variant="outline"
