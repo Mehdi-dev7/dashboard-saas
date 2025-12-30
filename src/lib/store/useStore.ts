@@ -1,11 +1,18 @@
 import type { User } from "@/types";
 import { create } from "zustand";
 
+interface Profile {
+	name: string;
+	email: string;
+	bio: string;
+}
+
 interface StoreState {
 	// State
 	users: User[];
 	darkMode: boolean;
 	sidebarOpen: boolean;
+	profile: Profile;
 
 	// Actions
 	setUsers: (users: User[]) => void;
@@ -14,6 +21,7 @@ interface StoreState {
 	deleteUser: (id: string) => void;
 	toggleDarkMode: () => void;
 	toggleSidebar: () => void;
+	updateProfile: (data: Partial<Profile>) => void;
 }
 
 export const useStore = create<StoreState>((set) => ({
@@ -21,6 +29,11 @@ export const useStore = create<StoreState>((set) => ({
 	users: [],
 	darkMode: false,
 	sidebarOpen: true,
+	profile: {
+		name: "Admin User",
+		email: "admin@example.com",
+		bio: "",
+	},
 
 	// Actions
 	setUsers: (users) => set({ users }),
@@ -59,5 +72,10 @@ export const useStore = create<StoreState>((set) => ({
 	toggleSidebar: () =>
 		set((state) => ({
 			sidebarOpen: !state.sidebarOpen,
+		})),
+
+	updateProfile: (data) =>
+		set((state) => ({
+			profile: { ...state.profile, ...data },
 		})),
 }));

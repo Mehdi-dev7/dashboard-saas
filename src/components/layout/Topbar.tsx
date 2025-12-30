@@ -24,10 +24,12 @@ import {
 	User,
 	X,
 } from "lucide-react";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export function Topbar() {
-	const { toggleSidebar, darkMode, toggleDarkMode, sidebarOpen } = useStore();
+	const { toggleSidebar, darkMode, toggleDarkMode, sidebarOpen, profile } =
+		useStore();
 	const [mounted, setMounted] = useState(false);
 
 	useEffect(() => {
@@ -107,10 +109,18 @@ export function Topbar() {
 									>
 										<Avatar className="size-9">
 											<AvatarImage
-												src="https://api.dicebear.com/7.x/avataaars/svg?seed=Admin"
+												src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(
+													profile.name
+												)}`}
 												alt="Avatar"
 											/>
-											<AvatarFallback>AD</AvatarFallback>
+											<AvatarFallback>
+												{profile.name
+													.split(" ")
+													.map((n) => n[0])
+													.join("")
+													.toUpperCase()}
+											</AvatarFallback>
 										</Avatar>
 									</Button>
 								</DropdownMenuTrigger>
@@ -118,21 +128,25 @@ export function Topbar() {
 									<DropdownMenuLabel>
 										<div className="flex flex-col space-y-1">
 											<p className="text-sm font-medium leading-none">
-												Admin User
+												{profile.name}
 											</p>
 											<p className="text-xs leading-none text-muted-foreground">
-												admin@example.com
+												{profile.email}
 											</p>
 										</div>
 									</DropdownMenuLabel>
 									<DropdownMenuSeparator />
-									<DropdownMenuItem>
-										<User className="mr-2 size-4" />
-										<span>Profile</span>
+									<DropdownMenuItem asChild>
+										<Link href="/settings" className="flex items-center">
+											<User className="mr-2 size-4" />
+											<span>Profile</span>
+										</Link>
 									</DropdownMenuItem>
-									<DropdownMenuItem>
-										<Settings className="mr-2 size-4" />
-										<span>Settings</span>
+									<DropdownMenuItem asChild>
+										<Link href="/settings" className="flex items-center">
+											<Settings className="mr-2 size-4" />
+											<span>Settings</span>
+										</Link>
 									</DropdownMenuItem>
 									<DropdownMenuSeparator />
 									<DropdownMenuItem className="text-destructive focus:text-destructive">
@@ -149,10 +163,18 @@ export function Topbar() {
 							>
 								<Avatar className="size-9">
 									<AvatarImage
-										src="https://api.dicebear.com/7.x/avataaars/svg?seed=Admin"
+										src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(
+											profile.name
+										)}`}
 										alt="Avatar"
 									/>
-									<AvatarFallback>AD</AvatarFallback>
+									<AvatarFallback>
+										{profile.name
+											.split(" ")
+											.map((n) => n[0])
+											.join("")
+											.toUpperCase()}
+									</AvatarFallback>
 								</Avatar>
 							</Button>
 						)}
