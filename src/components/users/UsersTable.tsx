@@ -19,9 +19,17 @@ import { Edit, Eye, Trash } from "lucide-react";
 
 interface UsersTableProps {
 	users: User[];
+	onView?: (user: User) => void;
+	onEdit?: (user: User) => void;
+	onDelete?: (id: string) => void;
 }
 
-export function UsersTable({ users }: UsersTableProps) {
+export function UsersTable({
+	users,
+	onView,
+	onEdit,
+	onDelete,
+}: UsersTableProps) {
 	const getRoleVariant = (role: User["role"]) => {
 		switch (role) {
 			case "admin":
@@ -63,13 +71,19 @@ export function UsersTable({ users }: UsersTableProps) {
 			<Table>
 				<TableHeader>
 					<TableRow>
-						<TableHead className="w-10 sm:w-12 max-[360px]:w-8">Avatar</TableHead>
-						<TableHead className="min-w-[140px] max-[360px]:min-w-[100px]">Name</TableHead>
+						<TableHead className="w-10 sm:w-12 max-[360px]:w-8">
+							Avatar
+						</TableHead>
+						<TableHead className="min-w-[140px] max-[360px]:min-w-[100px]">
+							Name
+						</TableHead>
 						<TableHead className="hidden md:table-cell">Email</TableHead>
 						<TableHead className="hidden sm:table-cell">Role</TableHead>
 						<TableHead className="hidden lg:table-cell">Status</TableHead>
 						<TableHead className="hidden lg:table-cell">Created</TableHead>
-						<TableHead className="text-right w-20 sm:w-24 max-[360px]:w-16">Actions</TableHead>
+						<TableHead className="text-right w-20 sm:w-24 max-[360px]:w-16">
+							Actions
+						</TableHead>
 					</TableRow>
 				</TableHeader>
 				<TableBody>
@@ -143,6 +157,7 @@ export function UsersTable({ users }: UsersTableProps) {
 											className="size-8 max-[360px]:size-6"
 											aria-label="View"
 											title="View details"
+											onClick={() => onView?.(user)}
 										>
 											<Eye className="size-4 max-[360px]:size-3" />
 										</Button>
@@ -152,6 +167,7 @@ export function UsersTable({ users }: UsersTableProps) {
 											className="size-8 max-[360px]:size-6"
 											aria-label="Edit"
 											title="Edit user"
+											onClick={() => onEdit?.(user)}
 										>
 											<Edit className="size-4 max-[360px]:size-3" />
 										</Button>
@@ -161,6 +177,7 @@ export function UsersTable({ users }: UsersTableProps) {
 											className="size-8 max-[360px]:size-6 text-destructive hover:text-destructive"
 											aria-label="Delete"
 											title="Delete user"
+											onClick={() => onDelete?.(user.id)}
 										>
 											<Trash className="size-4 max-[360px]:size-3" />
 										</Button>
